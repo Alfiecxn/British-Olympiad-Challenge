@@ -7,12 +7,29 @@ input_password=str(input("\nNumerical Password (0-9 only)\n>>> "))
 
 split_pass=[]
 split_rules=[]
+qmarklist=[]
+positionbeforelist=[]
 
 for i in input_password:
     split_pass.append(i)
 
 for i in ruleset:
     split_rules.append(i)
+
+print(split_pass)
+print(split_rules)
+
+for i in range (len(split_rules)):
+    if split_rules[i]=='?':
+        qmarklist.append(i)
+
+
+print(qmarklist)
+for i in qmarklist:
+    positionbeforelist.append
+
+final_list = qmarklist+positionbeforelist
+
 
 print(split_pass)
 print(split_rules)
@@ -40,9 +57,7 @@ def compare(list_position):
 
         else:
             print("Password Invalid")
-
-    elif ruletype=='?':
-        second_split_rules=split_rules.pop(list_position-1)
+        
 
 # Adding some modifiers and general boundaries
 if len(ruleset) != len(input_password):
@@ -55,5 +70,4 @@ if split_rules[0]=='u' or split_rules[0]=='d' or split_rules[0]=='?':
 for i in range (len(ruleset)):
 
     compare(i)
-
 
