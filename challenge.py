@@ -9,35 +9,41 @@ split_pass=[]
 split_rules=[]
 qmarklist=[]
 positionbeforelist=[]
+filtered_ruleset=[]
+elements_removed=0
 
 for i in input_password:
     split_pass.append(i)
 
 for i in ruleset:
     split_rules.append(i)
-
-print(split_pass)
-print(split_rules)
+    filtered_ruleset.append(i)
 
 for i in range (len(split_rules)):
     if split_rules[i]=='?':
         qmarklist.append(i)
 
-
-print(qmarklist)
 for i in qmarklist:
-    positionbeforelist.append
+    positionbeforelist.append(i-1)
+final_position_list = positionbeforelist+qmarklist
 
-final_list = qmarklist+positionbeforelist
+final_position_list.sort(reverse=True)
+for i in final_position_list:
+    elements_removed=elements_removed+1
+    filtered_ruleset.pop(i)
 
-
-print(split_pass)
+print(filtered_ruleset)
 print(split_rules)
 
-def compare(list_position):
+#for i in range (elements_removed):
+#    filtered_ruleset.append('x')
+#print(filtered_ruleset)
+#An alternative solution to the new checklist length not matching the password length.
 
-    passnum=split_pass[list_position]
-    ruletype=split_rules[list_position]
+def compare(list_position, list):
+    error2='error2'
+    error='error'
+    ruletype=list[list_position]
 
     if ruletype=='x':
         pass
@@ -48,7 +54,7 @@ def compare(list_position):
             pass
 
         else:
-            print("Password Invalid")
+            return error2
 
     elif ruletype=='d':
 
@@ -56,18 +62,32 @@ def compare(list_position):
             pass
 
         else:
-            print("Password Invalid")
+            return error
         
 
 # Adding some modifiers and general boundaries
-if len(ruleset) != len(input_password):
-    print("your password and ruleset need to be the same length")
 
 if split_rules[0]=='u' or split_rules[0]=='d' or split_rules[0]=='?':
     print("Your ruleset cannot start with u, d, or ? ")
     exit()
 
 for i in range (len(ruleset)):
+    x=compare(i, split_rules)
+    if x=='error' or x=='error2':
+        break
 
-    compare(i)
+if x=='error' or x=='error2':
+    print("Error with first list")
+    for i in range (len(filtered_ruleset)):
+        y=compare(i,filtered_ruleset)
+    if y=='error' or y=='error2':
+        print("Error with second list")
+        print("Password Invalid")
+    else:
+        print("Passed on second list")
+else:
+    print("Passed on first list")
+    
+
+    
 
